@@ -32,3 +32,18 @@ Este projeto tem como objetivo demonstrar um pipeline de ETL/ELT moderno com boa
 <img width="1271" height="833" alt="diagrama_1" src="https://github.com/user-attachments/assets/2b3cbca5-be41-4767-a4b7-da5d0e56996d" />
 
 
+## Dependecias:
+- **Docker / Airflow**    
+        Docker Compose 3.8+ (orquestração)        
+        Apache Airflow 2.9.3  
+        Responsável pela orquestração dos pipelines de dados        
+        Executa DAGs que disparam dbt e outras tarefas
+
+- **dbt**
+    dbt-core → núcleo do dbt para transformação de dados
+    dbt-snowflake → adaptador para conectar ao Snowflake
+    Observação: como o dbt será executado dentro do container Airflow, a instalação precisa ser feita após trocar para usuário airflow no Dockerfile
+
+        
+
+
