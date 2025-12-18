@@ -43,7 +43,17 @@ Este projeto tem como objetivo demonstrar um pipeline de ETL/ELT moderno com boa
           dbt-core → núcleo do dbt para transformação de dados
           dbt-snowflake → adaptador para conectar ao Snowflake
           Observação: como o dbt será executado dentro do container Airflow, a instalação precisa ser feita após trocar para usuário airflow no Dockerfile
+
+-  **Python**
+    Python 3.10+ (dentro do container do Airflow)]
   
+- **|Banco de Dados**
+    Snowflake → fonte de dados e destino do dbt
+    Airbyte → faz a ingestão direta das fontes (PostgreSQL, CSV, APIs etc.)
+
+- **BI / Visualização**
+
+    Power BI Desktop → conexão ao Snowflake para relatórios e dashboards
           
   
 
