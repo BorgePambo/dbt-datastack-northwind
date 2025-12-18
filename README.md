@@ -39,10 +39,10 @@ Este projeto tem como objetivo demonstrar um pipeline de ETL/ELT moderno com boa
         Responsável pela orquestração dos pipelines de dados        
         Executa DAGs que disparam dbt e outras tarefas
 
-- **dbt**
-        dbt-core → núcleo do dbt para transformação de dados
-        dbt-snowflake → adaptador para conectar ao Snowflake
-        Observação: como o dbt será executado dentro do container Airflow, a instalação precisa ser feita após trocar para usuário airflow no Dockerfile
+- **dbt /** 
+          dbt-core → núcleo do dbt para transformação de dados
+          dbt-snowflake → adaptador para conectar ao Snowflake
+          Observação: como o dbt será executado dentro do container Airflow, a instalação precisa ser feita após trocar para usuário airflow no Dockerfile
   
           
   
