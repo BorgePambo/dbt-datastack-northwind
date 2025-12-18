@@ -22,3 +22,7 @@ Este projeto tem como objetivo demonstrar um pipeline de ETL/ELT moderno com boa
 
 ## 📁 Estrutura do Projeto
 
+## Star schema Modelagem
+<img width="1271" height="833" alt="diagrama_1" src="https://github.com/user-attachments/assets/2b3cbca5-be41-4767-a4b7-da5d0e56996d" />
+
+
