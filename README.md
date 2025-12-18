@@ -21,6 +21,12 @@ Este projeto tem como objetivo demonstrar um pipeline de ETL/ELT moderno com boa
 ---
 
 ## 📁 Estrutura do Projeto
+  Resumo do fluxo de dados:
+
+- **Staging** (stagging) → limpeza e padronização dos dados da fonte.
+- **Marts** (dim/ e fact/) → modelagem dimensional para análise.
+- **Airflow** → orquestra execução dos pipelines dbt e carregamento de dados.
+- **Power BI / Visualização** → relatórios e dashboards a partir das dimensões e fatos.
 
 ## Star schema Modelagem
 <img width="1271" height="833" alt="diagrama_1" src="https://github.com/user-attachments/assets/2b3cbca5-be41-4767-a4b7-da5d0e56996d" />
