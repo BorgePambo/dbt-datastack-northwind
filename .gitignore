@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+
+# Virtual environment
+.myvenv/
+
+# DBT
+northwind_dbt/.dbt/
+northwind_dbt/analysis/
+northwind_dbt/logs/
+northwind_dbt/macros/
+northwind_dbt/seeds/
+northwind_dbt/target/
+northwind_dbt/tests/
+
+# Environment files
+.env
+
+# IDEs
+.vscode/
+.idea/

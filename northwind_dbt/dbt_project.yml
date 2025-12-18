@@ -1,0 +1,23 @@
+
+name: 'northwind_dbt'
+version: '1.0.0'
+
+
+profile: 'northwind_dbt'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+
+#snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+models:
+  northwind_dbt:
+    example:
+      +materialized: view

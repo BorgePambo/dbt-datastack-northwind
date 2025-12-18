@@ -1,0 +1,82 @@
+# docker-compose.yml
+# Airflow + Postgres + Northwind DB
+
+x-airflow-common: &airflow-common
+  build:
+    context: .
+    dockerfile: Dockerfile        # aponta para o Dockerfile customizado
+  user: "50000:0"
+  environment:
+    AIRFLOW_UID: 50000
+    AIRFLOW_GID: 50000
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_DB_USER}:${AIRFLOW_DB_PASSWORD}@postgres-airflow:5432/${AIRFLOW_DB_NAME}
+  volumes:
+    - ./airflow/dags:/opt/airflow/dags
+    - ./airflow/logs:/opt/airflow/logs
+    - ./airflow/plugins:/opt/airflow/plugins
+    - ./northwind_dbt:/opt/airflow/northwind_dbt
+    - ./northwind_dbt/.dbt:/home/airflow/.dbt
+  depends_on:
+    postgres-airflow:
+      condition: service_started
+
+
+
+services:
+
+  # Postgres para Airflow
+  postgres-airflow:
+    image: postgres:15
+    container_name: postgres-airflow
+    environment:
+      POSTGRES_USER: ${AIRFLOW_DB_USER}
+      POSTGRES_PASSWORD: ${AIRFLOW_DB_PASSWORD}
+      POSTGRES_DB: ${AIRFLOW_DB_NAME}
+    volumes:
+      - postgres-airflow-volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # Init Airflow (DB + admin user)
+  airflow-init:
+    <<: *airflow-common
+    command: >
+      bash -c "airflow db migrate &&
+               airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@airflow.com"
+
+  # Webserver
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8080:8080"
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  # Scheduler
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  # Postgres Northwind
+  postgres-northwind:
+    image: postgres:15
+    container_name: postgres-northwind
+    environment:
+      POSTGRES_USER: ${NORTHWIND_DB_USER}
+      POSTGRES_PASSWORD: ${NORTHWIND_DB_PASSWORD}
+      POSTGRES_DB: ${NORTHWIND_DB_NAME}
+    volumes:
+      - postgres-northwind-volume:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+volumes:
+  postgres-airflow-volume:
+  postgres-northwind-volume:
