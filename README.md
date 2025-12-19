@@ -1,7 +1,8 @@
 # DBT Ecommerce Data Warehouse
 
 ## Modern Data Pipeline: dbt + PostgreSQL + Airflow
-<img width="1432" height="462" alt="dbt_modern_stack" src="https://github.com/user-attachments/assets/6771a432-77e4-4d12-afe0-67377f7cbb1d" />
+<img width="1367" height="666" alt="dtb_stage" src="https://github.com/user-attachments/assets/882d7614-67ab-47f5-b77a-d8e80b7d84b2" />
+
 
 # DBT Ecommerce App
 
@@ -14,8 +15,9 @@ Este projeto tem como objetivo demonstrar um pipeline de ETL/ELT moderno com boa
 
 - **dbt**: transformação de dados e modelagem dimensional
 - **PostgreSQL**: banco de dados transacional
+- **Airbyte**: ferramenta de ingestão de dados, que conecta fontes externas ao data warehouse automaticamente.
 - **Airflow**: orquestração de DAGs de dados
-- **Docker / Docker Compose**: ambientes isolados e reprodutíveis
+- **Docker / Docker Compose**: ambientes locais
 - **Power BI (opcional)**: visualização de dados a partir das tabelas de fato e dimensões
 
 ---
@@ -35,7 +37,8 @@ Este projeto tem como objetivo demonstrar um pipeline de ETL/ELT moderno com boa
 ## Dependecias:
 - **Docker / Airflow**    
         Docker Compose 3.8+ (orquestração)        
-        Apache Airflow 2.9.3  
+        Apache Airflow 2.9.3
+        Airbyte (via Docker) → ingestão de dados automatizada de fontes externas para o data warehouse, sem necessidade de código
         Responsável pela orquestração dos pipelines de dados        
         Executa DAGs que disparam dbt e outras tarefas
 
