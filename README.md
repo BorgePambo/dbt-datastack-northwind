@@ -1,7 +1,8 @@
 # DBT Ecommerce Data Warehouse
 
 ## Modern Data Pipeline: dbt + PostgreSQL + Airflow
-<img width="1367" height="666" alt="dtb_stage" src="https://github.com/user-attachments/assets/882d7614-67ab-47f5-b77a-d8e80b7d84b2" />
+<img width="1407" height="648" alt="stackk_mod4" src="https://github.com/user-attachments/assets/f774c263-2439-49e9-9b39-8e761843142e" />
+
 
 
 # DBT Ecommerce App
