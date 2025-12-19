@@ -41,7 +41,7 @@ jobs:
         run: |
           mkdir -p ~/.dbt
           cat > ~/.dbt/profiles.yml <<EOF
-          banking_dbt:
+          northwind_dbt:
             target: ci
             outputs:
               ci:
