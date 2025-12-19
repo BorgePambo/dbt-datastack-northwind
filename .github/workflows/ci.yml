@@ -1,0 +1,72 @@
+name: DBT CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ dev ]
+
+jobs:
+  dbt-ci:
+    name: dbt validation
+    runs-on: ubuntu-latest
+
+    steps:
+      # ------------------------
+      # Checkout
+      # ------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ------------------------
+      # Python
+      # ------------------------
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      # ------------------------
+      # Install dbt
+      # ------------------------
+      - name: Install dbt
+        run: |
+          pip install --upgrade pip
+          pip install dbt-core dbt-snowflake
+
+      # ------------------------
+      # Setup dbt profile (Snowflake)
+      # ------------------------
+      - name: Configure dbt profile
+        run: |
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml <<EOF
+          banking_dbt:
+            target: ci
+            outputs:
+              ci:
+                type: snowflake
+                account: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+                user: ${{ secrets.SNOWFLAKE_USER }}
+                password: ${{ secrets.SNOWFLAKE_PASSWORD }}
+                role: ACCOUNTADMIN
+                warehouse: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+                database: NORTHWIND
+                schema: ANALYTICS_CI
+                threads: 4
+          EOF
+
+      # ------------------------
+      # dbt validation
+      # ------------------------
+      - name: dbt deps
+        working-directory: northwind_dbt
+        run: dbt deps
+
+      - name: dbt compile
+        working-directory: northwind_dbt
+        run: dbt compile
+
+      - name: dbt test
+        working-directory: northwind_dbt
+        run: dbt test
